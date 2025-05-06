@@ -2,7 +2,7 @@
 
 Ein WordPress-Plugin zur Vergabe und Verwaltung von Inhalts-Prioritäten für PDF-Dateien, Beiträge, Seiten und Custom Post Types (CPTs). Ideal zur inhaltlichen Gewichtung und Sortierung – z. B. in Kombination mit Ajax Search Pro.
 
----
+
 
 ## Funktionen
 
@@ -13,9 +13,8 @@ Ein WordPress-Plugin zur Vergabe und Verwaltung von Inhalts-Prioritäten für PD
 - Speicherung als Custom Field (`pdf_priority`, `content_priority`)
 - Kompatibel mit Ajax Search Pro zur Priorisierung von Suchergebnissen
 
----
 
-## 🚀 Einsatzbeispiel mit Ajax Search Pro
+## Einsatzbeispiel mit Ajax Search Pro
 
 - PDFs mit höherer Priorität erscheinen weiter oben in der Suche
 - Kein aktiver Filter durch Nutzer:innen notwendig
@@ -23,8 +22,8 @@ Ein WordPress-Plugin zur Vergabe und Verwaltung von Inhalts-Prioritäten für PD
 
 **Wichtig:** Der Suchmodus in Ajax Search Pro muss auf `Regular engine` stehen (nicht „Index Table Engine“).
 
----
-## 🧩 Filter in functions.php für Ajax Search Pro
+
+## Filter in functions.php für Ajax Search Pro
 Damit Ajax Search Pro die PDF-Ergebnisse nach Priorität sortiert, muss folgender PHP-Filter verwendet werden (sofern nicht im Plugin enthalten):
 ```
 add_filter('asp_results', 'cpm_sort_pdfs_by_priority', 10, 2);
@@ -45,7 +44,7 @@ function cpm_sort_pdfs_by_priority($results, $args) {
     return $results;
 }
 ```
----
+
 
 ## Technische Details
 
@@ -54,7 +53,7 @@ function cpm_sort_pdfs_by_priority($results, $args) {
 | `pdf_priority`     | `attachment` (PDF) | Zahl (1–5) |
 | `content_priority` | `post`, `page`, CPTs | Zahl (1–5) |
 
----
+
 
 ## Installation
 
