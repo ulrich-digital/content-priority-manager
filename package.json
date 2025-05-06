@@ -1,0 +1,24 @@
+{
+  "name": "content-priority-manager",
+  "version": "1.0.0",
+  "description": "Plugin zur Priorisierung von Inhalten in WordPress.",
+  "main": "build/index.js",
+"scripts": {
+  "start": "wp-scripts start",
+  "build": "wp-scripts build",
+  "lint:js": "wp-scripts lint-js",
+  "format:js": "wp-scripts format-js"
+},
+  "dependencies": {
+    "@wordpress/scripts": "^27.0.0"
+  },
+  "devDependencies": {},
+  "keywords": [
+    "wordpress",
+    "priority",
+    "media",
+    "plugin"
+  ],
+  "author": "Dein Name",
+  "license": "GPL-2.0-or-later"
+}
