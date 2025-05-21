@@ -3,6 +3,9 @@ import { PluginDocumentSettingPanel } from "@wordpress/editor";
 import { SelectControl } from "@wordpress/components";
 import { useSelect, useDispatch } from "@wordpress/data";
 
+/* =============================================================== *\ 
+   Konstante: Dropdown-Optionen
+\* =============================================================== */
 const PRIORITY_OPTIONS = [
 	{ label: "5 – Sehr hoch", value: "5" },
 	{ label: "4 – Hoch", value: "4" },
@@ -11,24 +14,26 @@ const PRIORITY_OPTIONS = [
 	{ label: "1 – Sehr niedrig", value: "1" },
 ];
 
+/* =============================================================== *\
+   Registrierung bei passenden Post Types
+\* =============================================================== */
 wp.data.subscribe(() => {
-	const currentType = wp.data.select('core/editor').getCurrentPostType();
+	const currentType = wp.data.select("core/editor").getCurrentPostType();
 	const allowedTypes = window.cpmSettings?.enabledPostTypes || [];
 
-	if (!currentType) return; // Warten bis Typ bekannt
+	if (!currentType) return; // Post-Typ noch nicht bekannt
+	if (!allowedTypes.includes(currentType)) return; // Nicht erlaubt
 
-	if (!allowedTypes.includes(currentType)) {
-		//console.log(`Content Priority deaktiviert für Post Type: ${currentType}`);
-		return;
-	}
-
-	// Nur einmal registrieren
+	// Nur einmal registrieren (bei Hot-Reloads etc.)
 	if (window.__cpm_post_plugin_registered) return;
 	window.__cpm_post_plugin_registered = true;
 
+	/* =============================================================== *\
+	   Komponente: Sidebar-Einstellung für Inhalts-Priorität
+	\* =============================================================== */
 	const ContentPrioritySidebar = () => {
 		const meta = useSelect((select) =>
-			select("core/editor").getEditedPostAttribute("meta")
+			select("core/editor").getEditedPostAttribute("meta"),
 		);
 		const { editPost } = useDispatch("core/editor");
 		const current = meta?.content_priority || "3";
@@ -54,6 +59,7 @@ wp.data.subscribe(() => {
 		);
 	};
 
+	// Plugin-Registrierung im Editor
 	registerPlugin("content-priority-sidebar", {
 		render: ContentPrioritySidebar,
 	});

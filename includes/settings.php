@@ -20,12 +20,19 @@ add_action('admin_menu', function () {
 });
 
 add_action('admin_init', function () {
-    register_setting('cpm_settings', 'cpm_enable_media');
+    //register_setting('cpm_settings', 'cpm_enable_media');
     register_setting('cpm_settings', 'cpm_enabled_post_types', [
         'type'    => 'array',
         'default' => [],
     ]);
     register_setting('cpm_settings', 'cpm_enable_ajax_support');
+    register_setting('cpm_settings', 'cpm_allowed_media_types', [
+        'type' => 'array',
+        'default' => ['application/pdf'],
+        'sanitize_callback' => function ($input) {
+            return array_filter((array) $input, fn($v) => is_string($v));
+        },
+    ]);
 });
 
 /* =============================================================== *\ 
@@ -73,12 +80,12 @@ function cpm_render_settings_page() {
     $enable_media = get_option('cpm_enable_media', 1);
 
     // Ajax: standardmäßig deaktiviert
-$is_asp_active = get_option('cpm_asp_plugin_available', 0); // fallback = 0
+    $is_asp_active = get_option('cpm_asp_plugin_available', 0); // fallback = 0
 
-$stored_ajax = get_option('cpm_enable_ajax_support');
-$enable_ajax = $stored_ajax !== false ? $stored_ajax : ($is_asp_active ? 1 : 0);
-
+    $stored_ajax = get_option('cpm_enable_ajax_support');
+    $enable_ajax = $stored_ajax !== false ? $stored_ajax : ($is_asp_active ? 1 : 0);
 ?>
+
     <div class="wrap">
         <h1>Content Priority Manager – Einstellungen</h1>
         <form method="post" action="options.php">
@@ -86,13 +93,30 @@ $enable_ajax = $stored_ajax !== false ? $stored_ajax : ($is_asp_active ? 1 : 0);
             <table class="form-table">
                 <tbody>
                     <tr>
-                        <th scope="row">Priorität für PDFs aktivieren</th>
+                        <th scope="row">Für diese Medientypen anzeigen:</th>
                         <td>
-                            <label class="switch">
-                                <input type="checkbox" name="cpm_enable_media" value="1" <?php checked(1, $enable_media); ?> />
-                                <span class="slider"></span>
-                            </label>
-                            <span class="switch-label">PDFs</span>
+                            <?php
+                            $mime_choices = [
+                                'application/pdf' => 'PDFs',
+                                'image'           => 'Bilder',
+                                'video'           => 'Videos',
+                                'audio'           => 'Audios',
+                            ];
+                            $allowed_mimes = get_option('cpm_allowed_media_types', ['application/pdf']);
+                            ?>
+                            <div class="cpm-toggle-list">
+                                <?php foreach ($mime_choices as $value => $label): ?>
+                                    <div class="cpm-toggle-item">
+                                        <label class="switch">
+                                            <input type="checkbox" name="cpm_allowed_media_types[]" value="<?= esc_attr($value); ?>"
+                                                <?= in_array($value, $allowed_mimes) ? 'checked' : ''; ?> />
+                                            <span class="slider"></span>
+                                        </label>
+                                        <span class="switch-label"><?= esc_html($label); ?></span>
+                                    </div>
+                                <?php endforeach; ?>
+                            </div>
+                            <p class="description">Das Prioritätsfeld erscheint nur bei diesen Medientypen.</p>
                         </td>
                     </tr>
 
@@ -114,7 +138,7 @@ $enable_ajax = $stored_ajax !== false ? $stored_ajax : ($is_asp_active ? 1 : 0);
                     </tr>
 
                     <tr class="<?= !$is_asp_active ? 'cpm-disabled' : ''; ?>">
-                        <th scope="row">Ajax Search Pro Unterstützung aktivieren</th>
+                        <th scope="row">Ajax Search Pro Unterstützung aktivieren:</th>
                         <td>
                             <label class="switch">
                                 <input type="checkbox" name="cpm_enable_ajax_support" value="1"

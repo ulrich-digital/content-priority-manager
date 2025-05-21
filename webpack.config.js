@@ -20,15 +20,17 @@ const path = require("path");
 module.exports = {
 	...defaultConfig,
 	entry: {
-		editor: path.resolve(__dirname, "src/js/editor.js"),
-		// frontend: path.resolve(__dirname, "src/js/frontend.js"),
+
+// JavaScript-Einstiegspunkte
+		'editor-script': path.resolve(__dirname, "src/js/editor.js"),
+		//'frontend-script': path.resolve(__dirname, "src/js/frontend.js"),
 
 		// SCSS-Dateien → werden zu CSS kompiliert
-		//editor: path.resolve(__dirname, "src/css/editor.scss"),
-    	admin: path.resolve(__dirname, "src/css/admin.scss"),
+		//'editor-style': path.resolve(__dirname, "src/css/editor.scss"),
+		//'frontend-style': path.resolve(__dirname, "src/css/frontend.scss"),    	
 
-
-		// frontend: path.resolve(__dirname, "src/css/frontend.scss"),
+		// Admin Seite
+		admin: path.resolve(__dirname, "src/css/admin.scss"),
 	},
 	output: {
 		path: path.resolve(__dirname, "build"),

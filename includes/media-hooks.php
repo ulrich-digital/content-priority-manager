@@ -1,6 +1,6 @@
 <?php
 defined('ABSPATH') || exit;
-
+/*
 // Medien-Dropdown im Attachment-Popup
 add_filter('attachment_fields_to_edit', function($form_fields, $post) {
     if (!get_option('cpm_enable_media')) {
@@ -31,9 +31,14 @@ add_filter('attachment_fields_to_edit', function($form_fields, $post) {
 
 // Speichern des Dropdown-Wertes
 add_filter('attachment_fields_to_save', function($post, $attachment) {
-    if ($post['type'] === 'application/pdf' && empty($attachment['pdf_priority'])) {
-        update_post_meta($post['ID'], 'pdf_priority', '3');
-    }
+    if (
+    isset($post['type']) &&
+    $post['type'] === 'application/pdf' &&
+    empty($attachment['pdf_priority'])
+) {
+	update_post_meta($post['ID'], 'pdf_priority', '3');
+}
+
     return $post;
 }, 20, 2);
 
@@ -51,3 +56,4 @@ add_action('wp_handle_upload', function($upload) {
     }, 10, 2);
     return $upload;
 });
+*/

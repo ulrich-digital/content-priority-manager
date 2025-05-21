@@ -1,6 +1,18 @@
 <?php
 defined('ABSPATH') || exit;
 
+add_action('rest_api_init', function () {
+	register_rest_route('debug/v1', '/media/(?P<id>\d+)', [
+		'methods'  => 'POST',
+		'callback' => function ($request) {
+			error_log('DEBUG media update: ' . print_r($request->get_json_params(), true));
+			return rest_ensure_response(['received' => $request->get_json_params()]);
+		},
+		'permission_callback' => '__return_true',
+	]);
+});
+
+
 // content_priority nur für aktivierte CPTs
 function cpm_register_post_priority_meta() {
     $enabled_post_types = get_option('cpm_enabled_post_types', []);
@@ -27,7 +39,9 @@ function cpm_register_pdf_priority_meta() {
         'show_in_rest'  => true,
         'single'        => true,
         'type'          => 'string',
-        'auth_callback' => fn() => current_user_can('edit_posts'),
+	'auth_callback' => '__return_true',
+	'sanitize_callback' => 'sanitize_text_field',
+
     ]);
 }
 add_action('init', 'cpm_register_pdf_priority_meta');
