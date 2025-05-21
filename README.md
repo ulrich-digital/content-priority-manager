@@ -3,6 +3,7 @@
 Ein WordPress-Plugin zur Vergabe und Verwaltung von Inhalts-Prioritäten für PDF-Dateien, Beiträge, Seiten und Custom Post Types (CPTs). Ideal zur inhaltlichen Gewichtung und Sortierung – z. B. in Kombination mit Ajax Search Pro.
 
 
+
 ## Funktionen
 
 * Prioritätsfeld (1–5) für:
@@ -15,7 +16,7 @@ Ein WordPress-Plugin zur Vergabe und Verwaltung von Inhalts-Prioritäten für PD
   * `pdf_priority` für Anhänge
   * `content_priority` für alle anderen Inhalte
 * Kompatibel mit **Ajax Search Pro** zur Priorisierung von Suchergebnissen
-* **Optionenseite** zur gezielten Aktivierung pro Inhaltstyp (PDFs, Post Types, Ajax Search Pro)
+* **Optionenseite** zur gezielten Aktivierung pro Inhaltstyp und Medientyp (PDFs, Bilder, Videos, Audios, Post Types, Ajax Search Pro)
 
 
 
@@ -24,11 +25,14 @@ Ein WordPress-Plugin zur Vergabe und Verwaltung von Inhalts-Prioritäten für PD
 Die Plugin-Einstellungen finden sich unter
 **Einstellungen → Content Priority Manager**
 
+
+
 ### Mögliche Optionen:
 
-* **Priorität für PDFs aktivieren**
+* **Medientypen auswählen**, für die das Prioritätsfeld erscheinen soll  
+  (z. B. PDF, Bilder, Videos, Audios)
 * **Aktive Post Types auswählen** (z. B. `post`, `page`, CPTs)
-* **Ajax Search Pro-Unterstützung aktivieren**
+* **Ajax Search Pro-Unterstützung aktivieren**  
   → Fügt automatisch den nötigen Filter zur Ergebnis-Priorisierung hinzu
 
 
@@ -42,13 +46,15 @@ Die Plugin-Einstellungen finden sich unter
 
 ## Screenshots 
 
-1. **Sidebar im Gutenberg-Editor** mit Prioritätswahl
-    ![Sidebar im Editor](./assets/img/sidebar_im_editor.png)
-    *Abbildung: Sidebar im Editor.*
-2. **Medienansicht (PDF-Datei)** mit Prioritätsfeld
-    ![Medianansicht](./assets/img/medienansicht.png)
-    *Abbildung: Prioriätsfeld in der Medienansicht.*
-3. **Einstellungen im Adminbereich**
+**Sidebar im Gutenberg-Editor** mit Prioritätswahl
+![Sidebar im Editor](./assets/img/sidebar_im_editor.png)
+*Abbildung: Sidebar im Editor.*
+
+**Medienansicht (PDF-Datei)** mit Prioritätsfeld
+![Medianansicht](./assets/img/medienansicht.png)
+*Abbildung: Prioriätsfeld in der Medienansicht.*
+
+**Einstellungen im Adminbereich**
     ![Optionen-Seite](./assets/img/options_page.png)
     *Abbildung: Optionen-Seite.*
 

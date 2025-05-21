@@ -73,7 +73,7 @@ const MediaPriorityPanel = () => {
 				marginTop: "1em",
 			}}
 		>
-			<h3>Inhalts-Priorität</h3>
+			<h3 style={{ marginTop: 0 }}>Inhalts-Priorität</h3>
 			<SelectControl
 				value={value}
 				options={PRIORITY_OPTIONS}
