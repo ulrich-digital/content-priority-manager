@@ -1,8 +1,6 @@
 # Verhindert, dass Dev- oder Systemdateien überhaupt ins Git-Repo gelangen
 # Node & Build
 node_modules/
-build/
-dist/
 *.log
 
 # macOS
